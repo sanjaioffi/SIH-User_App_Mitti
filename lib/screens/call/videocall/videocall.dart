@@ -113,6 +113,7 @@ class _VideoCallState extends State<VideoCall> {
                 onPressed: _isJoined ? () => {leave()} : null,
                 icon: Icon(
                   _isJoined ? Icons.call_end : Icons.call,
+                  
                   color: _isJoined ? Colors.red : Colors.green,
                   size: 50.sp,
                 ),

@@ -6,10 +6,12 @@ import 'package:permission_handler/permission_handler.dart';
 
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:user_mitti/screens/call/value/setting.dart';
+import 'package:user_mitti/screens/call/voicecall/voicewidget.dart';
 
 class VoiceCall extends StatefulWidget {
-  const VoiceCall({Key? key}) : super(key: key);
-
+  static String statusText = 'Join a channel';
+  VoiceCall(this.channelId);
+  String channelId;
   @override
   _VoiceCallState createState() => _VoiceCallState();
 }
@@ -54,56 +56,43 @@ class _VoiceCallState extends State<VoiceCall> {
     return Scaffold(
         key: scaffoldMessengerKey,
         appBar: AppBar(
-          title: const Text('Voice Call'),
+          title: Text(widget.channelId + 'Voice Call'),
         ),
-        body: !_isJoined
-            ? Center(
-                child: ElevatedButton(
-                  child: const Text("Make a call"),
-                  onPressed: () => {join()},
-                ),
-              )
-            : Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // Status text
-                    Container(height: 40, child: Center(child: _status())),
-                    // Button Row
-                    Row(
-                      children: <Widget>[
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: IconButton(
-                            icon: Icon(
-                              Icons.call_end,
-                              size: 32.sp,
-                              color: Colors.red,
-                            ),
-                            onPressed: () => {leave()},
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ));
+        body: Center(
+          child: ElevatedButton(
+            child: const Text("Make a call"),
+            onPressed: () => {
+              print("token --------------------> $token"),
+              setState(() {
+                join();
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          Voice(status: _status, leave: leave),
+                    ));
+              })
+            },
+          ),
+        ));
   }
 
   Widget _status() {
-    String statusText;
-
     if (!_isJoined)
-      statusText = 'Join a channel';
+      setState(() {
+        VoiceCall.statusText = 'Join a channel';
+      });
     else if (_remoteUid == null)
-      statusText = 'Waiting for a remote user to join...';
+      setState(() {
+        VoiceCall.statusText = 'Waiting for a remote user to join...';
+      });
     else
-      statusText = 'Connected to remote user, uid:$_remoteUid';
+      setState(() {
+        VoiceCall.statusText = 'Connected to remote user, uid:$_remoteUid';
+      });
 
     return Text(
-      statusText,
+      VoiceCall.statusText,
     );
   }
 
@@ -165,7 +154,7 @@ class _VoiceCallState extends State<VoiceCall> {
     agoraEngine.leaveChannel();
   }
 
-  generateToken() {
+  void generateToken() {
     const expirationInSeconds = 3600;
     final currentTimestamp = DateTime.now().millisecondsSinceEpoch ~/ 1000;
     final expireTimestamp = currentTimestamp + expirationInSeconds;
@@ -177,5 +166,7 @@ class _VoiceCallState extends State<VoiceCall> {
       role: RtcRole.publisher,
       expireTimestamp: expireTimestamp,
     );
+
+    return;
   }
 }
