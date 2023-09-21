@@ -4,33 +4,97 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:user_mitti/controllers/location_controller.dart';
+import 'package:user_mitti/screens/help_page.dart';
+import 'package:user_mitti/screens/track_help.dart';
+import 'package:user_mitti/widgets/room_function.dart';
 
-class UserMapPage extends StatefulWidget {
-  UserMapPage(
-      {super.key});
+import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+class UserMapScreen extends StatefulWidget {
+  const UserMapScreen({super.key});
 
   @override
-  State createState() => _UserMapPageState();
+  State createState() => _UserMapScreenState();
 }
 
-class _UserMapPageState extends State<UserMapPage> {
+class _UserMapScreenState extends State<UserMapScreen> {
   late GoogleMapController mapController;
 
+  double radius = 500;
   List<Marker> markers = [];
+  List<Circle> circles = [];
+
+  List<Map<String, dynamic>> roomsData = [];
 
   @override
   void initState() {
     super.initState();
-    _addCustomMarkers();
+    _fetchData();
   }
 
-  void _addCustomMarkers() async {
+  Future<void> _fetchData() async {
+    List<Map<String, dynamic>> data = await getRooms();
+    setState(() {
+      roomsData = data;
+      print(roomsData);
+    });
+    _addCustomMarkers();
+    _addCircles();
+  }
+
+  Future<List<Map<String, dynamic>>> getRooms() async {
+    List<Map<String, dynamic>> data = await findRoomsInRadius([
+      Get.find<LocationController>().userLocation.value!.latitude,
+      Get.find<LocationController>().userLocation.value!.longitude
+    ]);
+    return data;
+  }
+
+  Future<void> _addCustomMarkers() async {
+    for (int i = 0; i < roomsData.length; i++) {
+      markers.add(Marker(
+        onTap: () {
+          showModalBottomSheet(
+            context: context,
+            builder: (context) {
+              return LocationInfoBottomSheet(
+                roomData: roomsData[i],
+              );
+            },
+          );
+        },
+        markerId: MarkerId(roomsData[i]['roomId']),
+        position:
+            LatLng(roomsData[i]['location'][0], roomsData[i]['location'][1]),
+        icon: await _createCustomMarker('assets/images/fire.png'),
+      ));
+    }
     markers.add(Marker(
       markerId: const MarkerId('user'),
-      position: LatLng(Get.find<LocationController>().userLocation.value!.latitude, Get.find<LocationController>().userLocation.value!.longitude),
-    
+      position: LatLng(
+          Get.find<LocationController>().userLocation.value!.latitude,
+          Get.find<LocationController>().userLocation.value!.longitude),
     ));
+
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  Future<void> _addCircles() async {
+    for (int i = 0; i < roomsData.length; i++) {
+      circles.add(Circle(
+        circleId: CircleId(roomsData[i]['roomId']),
+        center:
+            LatLng(roomsData[i]['location'][0], roomsData[i]['location'][1]),
+        radius: roomsData[i]['radius'],
+        fillColor: Colors.red.withOpacity(0.3),
+        strokeColor: Colors.red,
+        strokeWidth: 2,
+      ));
+    }
 
     if (mounted) {
       setState(() {});
@@ -40,34 +104,89 @@ class _UserMapPageState extends State<UserMapPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GoogleMap(
-        initialCameraPosition: CameraPosition(
-          target: LatLng(Get.find<LocationController>().userLocation.value!.latitude, Get.find<LocationController>().userLocation.value!.longitude),
-          zoom: 30.0,
-        ),
-        onMapCreated: (GoogleMapController controller) {
-          setState(() {
-            mapController = controller;
-          });
-        },
-        markers: Set<Marker>.of(markers),
-        circles: {
-          Circle(
-            circleId: const CircleId('disaster radius'),
-            center: LatLng(Get.find<LocationController>().userLocation.value!.latitude, Get.find<LocationController>().userLocation.value!.longitude),
-            radius: 10,
-            fillColor: Colors.red.withOpacity(0.3),
-            strokeColor: Colors.red,
-            strokeWidth: 2,
+      body: roomsData.isEmpty && markers.isEmpty && circles.isEmpty
+          ? const CircularProgressIndicator()
+          : GoogleMap(
+              initialCameraPosition: CameraPosition(
+                target: LatLng(
+                    roomsData[0]['location'][0], roomsData[0]['location'][1]),
+                zoom: 12.0,
+              ),
+              onMapCreated: (GoogleMapController controller) {
+                setState(() {
+                  mapController = controller;
+                });
+              },
+              markers: Set<Marker>.of(markers),
+              circles: Set<Circle>.of(circles),
+            ),
+    );
+  }
+}
+
+class LocationInfoBottomSheet extends StatelessWidget {
+  LocationInfoBottomSheet({super.key, required this.roomData});
+  var roomData;
+  @override
+  Widget build(
+    BuildContext context,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Align(
+            alignment: Alignment.center,
+            child: Text(
+              roomData['disasterType'],
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
-        },
+          const SizedBox(height: 8),
+          Text('Room Name: ${roomData['roomName']}'),
+          const SizedBox(height: 8),
+          Text('Location: ${roomData['district']}, ${roomData['state']}'),
+          const SizedBox(height: 10),
+          Center(
+            child: SizedBox(
+              width: double.maxFinite,
+              height: 50,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.deepPurpleAccent,
+                  shape: const StadiumBorder(),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => TrackHelpPage(
+                                roomId: roomData['roomId'],
+                              )));
+                },
+                child: const Text(
+                  'Go To Room',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 }
 
+// -----------------------
+
 Future<BitmapDescriptor> _createCustomMarker(String imagePath) async {
-  final ImageConfiguration config = const ImageConfiguration();
+  const ImageConfiguration config = ImageConfiguration();
   final BitmapDescriptor bitmapDescriptor =
       await BitmapDescriptor.fromAssetImage(config, imagePath);
   return bitmapDescriptor;
