@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:user_mitti/controllers/usercontroller.dart';
 
 class ProfileTile extends StatelessWidget {
   final IconData? tileIcon;
@@ -103,16 +105,17 @@ class ProfileImage extends StatelessWidget {
                   color: Colors.grey[300]!,
                   width: 1,
                 ),
+                // shape: BoxShape.circle,
                 // backgroundBlendMode: BlendMode.darken,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 1,
-                    blurRadius: 2,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-                borderRadius: BorderRadius.circular(13.0.sp),
+                // boxShadow: [
+                //   BoxShadow(
+                //     color: Colors.grey.withOpacity(0.5),
+                //     spreadRadius: 1,
+                //     blurRadius: 2,
+                //     offset: const Offset(0, 2),
+                //   ),
+                // ],
+                borderRadius: BorderRadius.circular(70.0.sp),
                 image: const DecorationImage(
                   image: NetworkImage(
                     "https://picsum.photos/250?image=342",
@@ -147,11 +150,12 @@ class ProfileImage extends StatelessWidget {
             SizedBox(
               height: 10.h,
             ),
-            Text("Counrtney Henry",
+            Text(Get.find<UserController>().userData['name'] ?? "User Name",
                 style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold)),
             // phone number
             Text(
-              "9876543210",
+              Get.find<UserController>().userData['phoneNumbers'][0] ??
+                  "phone number",
               style: TextStyle(
                 fontSize: 15.sp,
                 color: Colors.grey[500],

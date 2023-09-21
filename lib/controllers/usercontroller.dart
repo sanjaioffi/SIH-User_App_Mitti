@@ -1,4 +1,3 @@
-
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -8,13 +7,17 @@ class UserController extends GetxController {
 
   String get uid => _uid.value;
 
-
   Future<void> fetchUserData() async {
     final userUid = uid;
     try {
-      final userDoc = await FirebaseFirestore.instance.collection('users').doc(userUid).get();
+      final userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userUid)
+          .get();
       if (userDoc.exists) {
         userData.value = userDoc.data() as Map<String, dynamic>;
+        print('-----------------');
+        print(userData);
       }
     } catch (e) {
       print('Error fetching user data: $e');
@@ -25,6 +28,3 @@ class UserController extends GetxController {
     _uid.value = uid;
   }
 }
-
-
-

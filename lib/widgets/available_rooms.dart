@@ -19,15 +19,18 @@ class _AvailableRoomsState extends State<AvailableRooms> {
     // TODO: implement initState
     super.initState();
     getRooms();
+    print('rooms successfull');
   }
 
   Future<void> getRooms() async {
-    List<Map<String, dynamic>> data = await findRoomsInRadius([   
+    print(Get.find<LocationController>().userLocation.value);
+    List<Map<String, dynamic>> data = await findRoomsInRadius([
       Get.find<LocationController>().userLocation.value!.latitude,
       Get.find<LocationController>().userLocation.value!.longitude
     ]);
     setState(() {
       roomsData = data;
+      print(roomsData);
     });
   }
 
@@ -35,27 +38,26 @@ class _AvailableRoomsState extends State<AvailableRooms> {
   Widget build(BuildContext context) {
     return Expanded(
       child: RefreshIndicator(
-          onRefresh: () => getRooms(),
-          child: ListView.builder(
-            itemCount: roomsData.length,
-            itemBuilder: (context, index) {
-              Map<String, dynamic> room = roomsData[index];
-              print(room);
-              return TemprorayEmergencyRoomWidget(
-                  radius: room['radius'],
-                  integratedlatLng: room['location'],
-                  integratedroomId: room['roomId'],
-                  integratedCreatedOn: Timestamp.fromMillisecondsSinceEpoch(
-                          room['createdOn'].millisecondsSinceEpoch)
-                      .toDate()
-                      .toString(),
-                  integratedReliefRoomName: room['roomName'],
-                  integratedReliefRoomCause: room['disasterType'],
-                  integratedReliefRoomAgencies: room['agencies'],
-                  integratedReliefLocation: room['district']);
-            },
-          ),
-        
+        onRefresh: () => getRooms(),
+        child: ListView.builder(
+          itemCount: roomsData.length,
+          itemBuilder: (context, index) {
+            Map<String, dynamic> room = roomsData[index];
+            print(room);
+            return TemprorayEmergencyRoomWidget(
+                radius: room['radius'],
+                integratedlatLng: room['location'],
+                integratedroomId: room['roomId'],
+                integratedCreatedOn: Timestamp.fromMillisecondsSinceEpoch(
+                        room['createdOn'].millisecondsSinceEpoch)
+                    .toDate()
+                    .toString(),
+                integratedReliefRoomName: room['roomName'],
+                integratedReliefRoomCause: room['disasterType'],
+                integratedReliefRoomAgencies: room['agencies'],
+                integratedReliefLocation: room['district']);
+          },
+        ),
       ),
     );
   }

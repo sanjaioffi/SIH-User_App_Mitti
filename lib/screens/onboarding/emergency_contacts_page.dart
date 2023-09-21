@@ -14,8 +14,10 @@ class EmergencyContactPage extends StatefulWidget {
 }
 
 class _EmergencyContactPageState extends State<EmergencyContactPage> {
-  final List<Contact> _selectedContacts = [];
+  List<dynamic> _selectedContacts = [];
   List<Contact> _contacts = [];
+
+  var title = "";
 
   Future<void> _loadContacts() async {
     bool isPermissionGranted = await Permission.contacts.isGranted;
@@ -34,11 +36,22 @@ class _EmergencyContactPageState extends State<EmergencyContactPage> {
   @override
   void initState() {
     super.initState();
+
     _loadContacts();
+    print(Get.find<UserController>().uid);
+    _selectedContacts =
+        Get.find<UserController>().userData['emergencyContacts'] ?? [];
+
+    // print(_selectedContacts);
+    print(Get.find<UserController>().userData);
   }
 
   @override
   Widget build(BuildContext context) {
+    final ModalRoute<Object?>? currentRoute = ModalRoute.of(context);
+    final args = currentRoute?.settings.arguments.toString();
+    print(args);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -51,13 +64,15 @@ class _EmergencyContactPageState extends State<EmergencyContactPage> {
               itemCount: _contacts.length,
               itemBuilder: (context, index) {
                 final contact = _contacts[index];
-                final bool isSelected = _selectedContacts.contains(contact);
+                final bool isSelected =
+                    _selectedContacts.contains(contact.phones!.first.value!);
                 return InkWell(
                   onTap: () {
                     setState(() {
                       isSelected
-                          ? _selectedContacts.remove(contact)
-                          : _selectedContacts.add(contact);
+                          ? _selectedContacts
+                              .remove(contact.phones!.first.value!)
+                          : _selectedContacts.add(contact.phones!.first.value!);
                     });
                   },
                   child: ListTile(
@@ -76,14 +91,14 @@ class _EmergencyContactPageState extends State<EmergencyContactPage> {
         onPressed: () {
           print(_selectedContacts);
           UserService().updateEmergencyContacts(
-            Get.find<UserController>().uid,
-            _selectedContacts
-                .map((contact) => contact.phones!.first.value!)
-                .toList(),
-          );
-          Get.to(const MainPage());
+              Get.find<UserController>().uid, _selectedContacts);
+          if (args == "editing") {
+            Navigator.pop(context);
+          } else {
+            Get.to(const MainPage());
+          }
         },
-        child: const Icon(Icons.arrow_forward_ios),
+        child: Icon(args == "editing" ? Icons.check : Icons.arrow_forward_ios),
       ),
     );
   }

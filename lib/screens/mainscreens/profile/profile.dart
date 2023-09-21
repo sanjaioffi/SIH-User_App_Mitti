@@ -39,7 +39,6 @@ class Profile extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            // mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               SizedBox(
                 height: 20.h,
@@ -52,7 +51,10 @@ class Profile extends StatelessWidget {
                 tileIcon: Icons.contact_emergency_outlined,
                 title: "Emergency contacts",
                 subtitle: "Make changes to contacts",
-                function: () {},
+                function: () {
+                  Navigator.pushNamed(context, 'EmergencyContactPage',
+                      arguments: "editing");
+                },
               ),
               ProfileTile(
                 function: () {},

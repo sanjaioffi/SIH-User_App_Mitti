@@ -6,7 +6,7 @@ class UserService {
 
   Future<void> updateEmergencyContacts(
     String uid,
-    List<String> emergencyContacts,
+    List<dynamic> emergencyContacts,
   ) async {
     try {
       // Update the user's document with new emergency contacts
@@ -17,4 +17,6 @@ class UserService {
       print('Error updating emergency contacts: $e');
     }
   }
+
+  
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:user_mitti/controllers/location_controller.dart';
 import 'package:user_mitti/controllers/usercontroller.dart';
 import 'package:user_mitti/firebase_options.dart';
 import 'package:user_mitti/screens/call/videocall/groupcall.dart';
@@ -10,6 +11,7 @@ import 'package:user_mitti/screens/mainscreens/home_page.dart';
 import 'package:user_mitti/screens/mainscreens/main_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
+import 'package:user_mitti/screens/onboarding/emergency_contacts_page.dart';
 import 'package:user_mitti/screens/onboarding/signin_page.dart';
 
 void main() async {
@@ -35,9 +37,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final UserController userController = Get.put(UserController());
+
     if (uid != null) {
       userController.setUserUid(uid!);
       userController.fetchUserData();
+      print(uid.toString());
     }
     return ScreenUtilInit(
       child: GetMaterialApp(
@@ -48,7 +52,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.greenAccent),
           useMaterial3: true,
         ),
-        home: uid != null ? const MainPage() : const SignInPage(),
+        home: uid == null ? SignInPage() : MainPage(),
         routes: {
           "groupCall": (p0) => const GroupCall(),
           "voiceCall": (p0) => VoiceCall("cha"),
@@ -56,6 +60,7 @@ class MyApp extends StatelessWidget {
           "homePage": (p0) => const HomePage(),
           "signInPage": (p0) => const SignInPage(),
           "videoCall": (p0) => const VideoCall(),
+          "EmergencyContactPage": (p0) => EmergencyContactPage(),
         },
       ),
     );
