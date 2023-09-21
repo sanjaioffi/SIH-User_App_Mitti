@@ -42,12 +42,12 @@ class LocationController extends GetxController {
     } else {
       Get.showSnackbar(GetSnackBar(
         message: 'Location permission is required to use this application.',
-        duration: Duration(seconds: 5),
+        duration: const Duration(seconds: 5),
         mainButton: TextButton(
           onPressed: () async {
             await openAppSettings();
           },
-          child: Text('Settings'),
+          child: const Text('Settings'),
         ),
       ));
     }

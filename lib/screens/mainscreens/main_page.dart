@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:user_mitti/screens/mainscreens/home_page.dart';
-import 'package:user_mitti/screens/mainscreens/profile.dart';
+import 'package:user_mitti/screens/mainscreens/profile/profile.dart';
 import 'package:user_mitti/screens/mainscreens/user_map.dart';
 
 import '../../controllers/location_controller.dart';
-
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});

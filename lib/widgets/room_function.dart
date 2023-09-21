@@ -50,8 +50,8 @@ Future<List<Map<String, dynamic>>> findRoomsInRadius(List<dynamic> inputLocation
   final querySnapshot = await roomsCollection.get();
 
   List<Map<String, dynamic>> roomsData = [];
-  querySnapshot.docs.forEach((doc) {
-    final roomData = doc.data() as Map<String, dynamic>;
+  for (var doc in querySnapshot.docs) {
+    final roomData = doc.data();
     
     final roomLocation = roomData['location'] as List<dynamic>;
     final roomRadius = roomData['radius'] as double;
@@ -65,7 +65,7 @@ Future<List<Map<String, dynamic>>> findRoomsInRadius(List<dynamic> inputLocation
              Map<String, dynamic> data = doc.data();
         roomsData.add(data);
     }
-  });
+  }
   
   return roomsData;
 }

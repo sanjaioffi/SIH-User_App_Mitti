@@ -7,12 +7,14 @@ import 'package:user_mitti/screens/mainscreens/main_page.dart';
 import 'package:user_mitti/services/user_service.dart';
 
 class EmergencyContactPage extends StatefulWidget {
+  const EmergencyContactPage({super.key});
+
   @override
   _EmergencyContactPageState createState() => _EmergencyContactPageState();
 }
 
 class _EmergencyContactPageState extends State<EmergencyContactPage> {
-  List<Contact> _selectedContacts = [];
+  final List<Contact> _selectedContacts = [];
   List<Contact> _contacts = [];
 
   Future<void> _loadContacts() async {
@@ -39,12 +41,12 @@ class _EmergencyContactPageState extends State<EmergencyContactPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Emergency Contacts',
         ),
       ),
       body: _contacts.isEmpty
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : ListView.builder(
               itemCount: _contacts.length,
               itemBuilder: (context, index) {
@@ -64,8 +66,8 @@ class _EmergencyContactPageState extends State<EmergencyContactPage> {
                         ? contact.phones!.first.value!
                         : ''),
                     trailing: isSelected
-                        ? Icon(Icons.check_circle, color: Colors.green)
-                        : Icon(Icons.check_circle_outline),
+                        ? const Icon(Icons.check_circle, color: Colors.green)
+                        : const Icon(Icons.check_circle_outline),
                   ),
                 );
               },
@@ -79,9 +81,9 @@ class _EmergencyContactPageState extends State<EmergencyContactPage> {
                 .map((contact) => contact.phones!.first.value!)
                 .toList(),
           );
-          Get.to(MainPage());
+          Get.to(const MainPage());
         },
-        child: Icon(Icons.arrow_forward_ios),
+        child: const Icon(Icons.arrow_forward_ios),
       ),
     );
   }

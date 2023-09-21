@@ -1,9 +1,8 @@
 import 'package:get/get.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserController extends GetxController {
-  RxString _uid = ''.obs;
+  final RxString _uid = ''.obs;
   RxMap<dynamic, dynamic> userData = {}.obs;
 
   String get uid => _uid.value;

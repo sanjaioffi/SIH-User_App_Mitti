@@ -17,6 +17,38 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.2"
+  agora_rtc_engine:
+    dependency: "direct main"
+    description:
+      name: agora_rtc_engine
+      sha256: "2b9ea091c9123be01e9289167e0bcdd91aa7d8fdc24c94e23f1629c3a6e5391a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.2.2"
+  agora_rtm:
+    dependency: transitive
+    description:
+      name: agora_rtm
+      sha256: f53057125845494048e19ee6b8826fcee88937512d4c206d47a74345914e9a04
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.5.8"
+  agora_token_service:
+    dependency: "direct main"
+    description:
+      name: agora_token_service
+      sha256: ce2829fb4923ef6c4e16839a00982718f8335b3726e4971354e27cebcf74566e
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.2"
+  agora_uikit:
+    dependency: "direct main"
+    description:
+      name: agora_uikit
+      sha256: "0aa9569934d2f96426010332006870b0393efb1a41e389c37b8b3cf8d2800040"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.3.6"
   async:
     dependency: transitive
     description:
@@ -161,6 +193,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.1.4"
+  ffi:
+    dependency: transitive
+    description:
+      name: ffi
+      sha256: "7bf0adc28a23d395f19f3f1eb21dd7cfd1dd9f8e1c50051c069122e6853bc878"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   firebase_auth:
     dependency: "direct main"
     description:
@@ -294,6 +334,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.6"
+  flutter_screenutil:
+    dependency: "direct main"
+    description:
+      name: flutter_screenutil
+      sha256: "8cf100b8e4973dc570b6415a2090b0bfaa8756ad333db46939efc3e774ee100d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.9.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -472,6 +520,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.18.1"
+  iris_method_channel:
+    dependency: transitive
+    description:
+      name: iris_method_channel
+      sha256: "195a3224b26a6eb60dadd96d04da9f013a00541adac60cc8fdc9dbb104e581db"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
   js:
     dependency: transitive
     description:
@@ -488,14 +544,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.4"
+  json_annotation:
+    dependency: transitive
+    description:
+      name: json_annotation
+      sha256: b10a7b2ff83d83c777edba3c6a0f97045ddadd56c944e1a23a3fdf43a1bf4467
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.8.1"
   lints:
     dependency: transitive
     description:
       name: lints
-      sha256: "0a217c6c989d21039f1498c3ed9f3ed71b354e69873f13a8dfc3c9fe76f1b452"
+      sha256: "5e4a9cd06d447758280a8ac2405101e0e2094d2a1dbdd3756aec3fe7775ba593"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.1"
+    version: "2.0.1"
   matcher:
     dependency: transitive
     description:
@@ -604,18 +668,18 @@ packages:
     dependency: "direct main"
     description:
       name: permission_handler
-      sha256: ad65ba9af42a3d067203641de3fd9f547ded1410bad3b84400c2b4899faede70
+      sha256: bc56bfe9d3f44c3c612d8d393bd9b174eb796d706759f9b495ac254e4294baa5
       url: "https://pub.dev"
     source: hosted
-    version: "11.0.0"
+    version: "10.4.5"
   permission_handler_android:
     dependency: transitive
     description:
       name: permission_handler_android
-      sha256: f23cfe9af0d49c6b9fd8a8b09f7b3301ca7e346204939b5afef4404d36d2608f
+      sha256: "59c6322171c29df93a22d150ad95f3aa19ed86542eaec409ab2691b8f35f9a47"
       url: "https://pub.dev"
     source: hosted
-    version: "11.0.1"
+    version: "10.3.6"
   permission_handler_apple:
     dependency: transitive
     description:

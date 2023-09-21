@@ -22,7 +22,7 @@ class _PostHelpPageState extends State<PostHelpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Post Help Request'),
+        title: const Text('Post Help Request'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -31,26 +31,26 @@ class _PostHelpPageState extends State<PostHelpPage> {
           children: <Widget>[
             TextFormField(
               controller: _nameController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   border: OutlineInputBorder(), labelText: 'Name'),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             TextFormField(
               controller: _mobileController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   border: OutlineInputBorder(), labelText: 'Mobile Number'),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
-            Text('Select the Type of Help'),
-            SizedBox(
+            const Text('Select the Type of Help'),
+            const SizedBox(
               height: 10,
             ),
             DropdownButtonFormField<String>(
-              decoration: InputDecoration(border: OutlineInputBorder()),
+              decoration: const InputDecoration(border: OutlineInputBorder()),
               value: _selectedHelpType,
               items: ['Food', 'Boat', 'Shelters'].map((String value) {
                 return DropdownMenuItem<String>(
@@ -64,26 +64,26 @@ class _PostHelpPageState extends State<PostHelpPage> {
                 });
               },
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             TextFormField(
               initialValue: '1',
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   labelText: 'Number of People', border: OutlineInputBorder()),
               onChanged: (value) {
                 _numberOfPeople = int.tryParse(value) ?? 1;
               },
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Align(
               alignment: Alignment.center,
               child: ElevatedButton(
                 onPressed: () async {
                   await _postHelpRequest(widget.roomId);
                 },
-                child: Text('Submit Help Request'),
+                child: const Text('Submit Help Request'),
               ),
             ),
           ],
@@ -117,7 +117,7 @@ class _PostHelpPageState extends State<PostHelpPage> {
     } catch (e) {
       print('Error posting help request: $e');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content:
               Text('Error submitting help request. Please try again later.'),
         ),

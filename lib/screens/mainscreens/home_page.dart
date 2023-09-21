@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:user_mitti/widgets/available_rooms.dart';
 import 'package:user_mitti/widgets/weather_alerts.dart';
-import 'dart:async';
 import '../../controllers/location_controller.dart';
 import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({super.key});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -26,50 +23,50 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       child: Scaffold(
         body: GetBuilder<LocationController>(builder: (_) {
-          return  _.userAddress.value == null
-              ? Center(child: CircularProgressIndicator())
+          return _.userAddress.value == null
+              ? const Center(child: CircularProgressIndicator())
               : Center(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Padding(
                         padding: const EdgeInsets.only(left: 8.0),
-                        child: Text('${formatDate(DateTime.now())}'),
+                        child: Text(formatDate(DateTime.now())),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
+                        padding: const EdgeInsets.only(left: 1.0, top: 8.0),
                         child: Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.location_on,
                               color: Colors.red,
                             ),
-                            SizedBox(width: 10),
+                            const SizedBox(width: 5),
                             Text(
                               '${_.userAddress.value!.locality ?? 'Unknown'}, ',
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              '${_.userAddress.value!.country ?? 'Unknown'}',
+                              _.userAddress.value!.country ?? 'Unknown',
                               style: TextStyle(
                                   fontSize: 17, color: Colors.grey.shade700),
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 25),
                       WeatherAlerts(),
-                      SizedBox(height: 20),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
+                      const SizedBox(height: 25),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 8.0),
                         child: Text('Available Rooms ',
                             style: TextStyle(
                               fontSize: 20,
                             )),
                       ),
-                      AvailableRooms()
+                      const AvailableRooms()
                     ],
                   ),
                 );

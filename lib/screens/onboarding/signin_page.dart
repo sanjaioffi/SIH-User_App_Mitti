@@ -46,7 +46,7 @@ class _SignInPageState extends State<SignInPage> {
       Get.find<UserController>().setUserUid(userCredential.user!.uid);
       print("Signed in with temporary account.");
       Navigator.push(context, MaterialPageRoute(builder: (_) {
-        return EmergencyContactPage();
+        return const EmergencyContactPage();
       }));
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
@@ -71,16 +71,16 @@ class _SignInPageState extends State<SignInPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Align(
+            const Align(
                 alignment: Alignment.center,
                 child:
                     Text('Welcome to Mitti', style: TextStyle(fontSize: 30))),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
                 controller: nameController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Name',
                 ),
@@ -89,11 +89,11 @@ class _SignInPageState extends State<SignInPage> {
                 },
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
               child: Text('Choose your Mobile Numbers'),
             ),
-            Container(
+            SizedBox(
               height: 100,
               child: ListView.builder(
                 itemCount: items.length,
@@ -121,7 +121,7 @@ class _SignInPageState extends State<SignInPage> {
               alignment: Alignment.center,
               child: ElevatedButton(
                 onPressed: SignIn,
-                child: Text('Sign-In Anonymously'),
+                child: const Text('Sign-In Anonymously'),
               ),
             ),
           ],

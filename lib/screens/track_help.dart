@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:user_mitti/screens/help_page.dart';
@@ -45,12 +44,12 @@ class _TrackHelpPageState extends State<TrackHelpPage> {
             itemBuilder: (context, index) {
               Map<String, dynamic> help = helps[index];
               return ExpansionTile(
+                title: Text('Help Type: ${help['helpType']}'),
+                subtitle: Text('Status: ${help['status']}'),
                 children: [
                   Text('Request By: ${help['name']}'),
                   Text('Contact: ${help['mobile']}'),
                 ],
-                title: Text('Help Type: ${help['helpType']}'),
-                subtitle: Text('Status: ${help['status']}'),
               );
             },
           ),
