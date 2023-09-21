@@ -69,7 +69,7 @@ class TemprorayEmergencyRoomWidget extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const TrackHelpPage()),
+            MaterialPageRoute(builder: (context) => TrackHelpPage(roomId: integratedroomId)),
           );
         },
       ),

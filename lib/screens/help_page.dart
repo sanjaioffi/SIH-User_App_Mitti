@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:user_mitti/controllers/usercontroller.dart';
 
 class PostHelpPage extends StatefulWidget {
-  const PostHelpPage({super.key});
-
+  PostHelpPage({super.key, required this.roomId});
+  String roomId;
   @override
   _PostHelpPageState createState() => _PostHelpPageState();
 }
@@ -81,7 +81,7 @@ class _PostHelpPageState extends State<PostHelpPage> {
               alignment: Alignment.center,
               child: ElevatedButton(
                 onPressed: () async {
-                  await _postHelpRequest();
+                  await _postHelpRequest(widget.roomId);
                 },
                 child: const Text('Submit Help Request'),
               ),
@@ -92,10 +92,13 @@ class _PostHelpPageState extends State<PostHelpPage> {
     );
   }
 
-  Future<void> _postHelpRequest() async {
+  Future<void> _postHelpRequest(String roomId) async {
     try {
-      await FirebaseFirestore.instance.collection('helps').add({
-        'roomId': Get.find<UserController>().userData['roomId'],
+      final CollectionReference roomsCollection =
+          FirebaseFirestore.instance.collection('rooms');
+      final DocumentReference roomDoc = roomsCollection.doc(roomId);
+
+      await roomDoc.collection('helpRequests').add({
         'name': _nameController.text,
         'mobile': _mobileController.text,
         'helpType': _selectedHelpType,
@@ -103,17 +106,14 @@ class _PostHelpPageState extends State<PostHelpPage> {
         'status': 'Pending', // Initial status
         'timestamp': FieldValue.serverTimestamp(),
       });
-
-      // Clear the form fields
-      _nameController.clear();
-      _mobileController.clear();
-
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Help request submitted successfully!'),
+        SnackBar(
+          content:
+              Text('Help request submittet. refresh to see the updated list.'),
         ),
       );
-      Get.back();
+      Navigator.pop(context);
+      setState(() {});
     } catch (e) {
       print('Error posting help request: $e');
       ScaffoldMessenger.of(context).showSnackBar(
