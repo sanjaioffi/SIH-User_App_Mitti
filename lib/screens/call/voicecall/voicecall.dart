@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:agora_token_service/agora_token_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
@@ -10,7 +9,7 @@ import 'package:user_mitti/screens/call/voicecall/voicewidget.dart';
 
 class VoiceCall extends StatefulWidget {
   static String statusText = 'Join a channel';
-  VoiceCall(this.channelId);
+  VoiceCall(this.channelId, {super.key});
   String channelId;
   @override
   _VoiceCallState createState() => _VoiceCallState();
@@ -56,7 +55,7 @@ class _VoiceCallState extends State<VoiceCall> {
     return Scaffold(
         key: scaffoldMessengerKey,
         appBar: AppBar(
-          title: Text(widget.channelId + 'Voice Call'),
+          title: Text('${widget.channelId}Voice Call'),
         ),
         body: Center(
           child: ElevatedButton(
@@ -78,11 +77,11 @@ class _VoiceCallState extends State<VoiceCall> {
   }
 
   Widget _status() {
-    if (!_isJoined)
+    if (!_isJoined) {
       setState(() {
         VoiceCall.statusText = 'Join a channel';
       });
-    else if (_remoteUid == null)
+    } else if (_remoteUid == null)
       setState(() {
         VoiceCall.statusText = 'Waiting for a remote user to join...';
       });

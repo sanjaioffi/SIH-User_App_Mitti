@@ -22,7 +22,7 @@ class Voice extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             // Status text
-            Container(
+            SizedBox(
                 height: 40, child: Center(child: Text(VoiceCall.statusText))),
             // Button Row
             Row(

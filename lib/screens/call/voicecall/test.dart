@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:user_mitti/screens/call/voicecall/voicecall.dart';
 
 class TextPage extends StatefulWidget {
-  TextPage({super.key});
+  const TextPage({super.key});
 
   @override
   State<TextPage> createState() => _TextPageState();

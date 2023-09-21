@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:user_mitti/screens/home_page.dart';
+import 'package:get/get.dart';
+import 'package:user_mitti/screens/mainscreens/home_page.dart';
+import 'package:user_mitti/screens/mainscreens/profile/profile.dart';
+import 'package:user_mitti/screens/mainscreens/user_map.dart';
 
+import '../../controllers/location_controller.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -10,11 +14,11 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  final LocationController locationController = Get.put(LocationController());
   final List pages = [
-    HomePage(),
-    HomePage(),
-    HomePage(),
-    HomePage(),
+    const HomePage(),
+    const UserMapPage(),
+    const Profile(),
   ];
 
   late int curPage;
@@ -47,10 +51,6 @@ class _MainPageState extends State<MainPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.location_on),
-            label: "",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notification_important_rounded),
             label: "",
           ),
           BottomNavigationBarItem(

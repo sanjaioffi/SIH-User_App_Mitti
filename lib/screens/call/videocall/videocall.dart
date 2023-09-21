@@ -131,7 +131,7 @@ class _VideoCallState extends State<VideoCall> {
       return AgoraVideoView(
         controller: VideoViewController(
           rtcEngine: agoraEngine,
-          canvas: VideoCanvas(uid: 0),
+          canvas: const VideoCanvas(uid: 0),
         ),
       );
     } else {
