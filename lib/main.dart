@@ -11,8 +11,11 @@ import 'package:user_mitti/screens/mainscreens/home_page.dart';
 import 'package:user_mitti/screens/mainscreens/main_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
+import 'package:user_mitti/screens/mainscreens/profile/widgets/language.dart';
+import 'package:user_mitti/screens/mainscreens/profile/widgets/notification_list.dart';
 import 'package:user_mitti/screens/onboarding/emergency_contacts_page.dart';
 import 'package:user_mitti/screens/onboarding/signin_page.dart';
+import 'package:user_mitti/screens/track_help.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -49,10 +52,11 @@ class MyApp extends StatelessWidget {
         title: 'User App',
         theme: ThemeData(
           fontFamily: 'Poppins',
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.greenAccent),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
           useMaterial3: true,
         ),
-        home: uid == null ? SignInPage() : MainPage(),
+        // home: uid == null ? SignInPage() : MainPage(),
+        initialRoute: uid == null ? "signInPage" : "mainPage",
         routes: {
           "groupCall": (p0) => const GroupCall(),
           "voiceCall": (p0) => VoiceCall("cha"),
@@ -61,6 +65,8 @@ class MyApp extends StatelessWidget {
           "signInPage": (p0) => const SignInPage(),
           "videoCall": (p0) => const VideoCall(),
           "EmergencyContactPage": (p0) => EmergencyContactPage(),
+          "LanguageWidget": (p0) => const LanguageWidget(),
+          "NotificationList": (p0) => const NotificationsList(),
         },
       ),
     );

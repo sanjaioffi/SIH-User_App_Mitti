@@ -45,7 +45,7 @@ class _TrackHelpPageState extends State<TrackHelpPage> {
               Map<String, dynamic> help = helps[index];
               return ExpansionTile(
                 title: Text('Help Type: ${help['helpType']}'),
-                subtitle: Text('Status: ${help['status']}'),
+                subtitle: stepProgressIndicator(progress: help['status']),
                 children: [
                   Text('Request By: ${help['name']}'),
                   Text('Contact: ${help['mobile']}'),
@@ -80,4 +80,33 @@ class _TrackHelpPageState extends State<TrackHelpPage> {
       return [];
     }
   }
+}
+
+Widget stepProgressIndicator({required String progress}) {
+  int status = 0;
+  if (progress == "Pending") {
+    status = 1;
+  } else if (progress == "") {
+    status = 2;
+  } else {
+    status = 3;
+  }
+  return Container(
+    child: Column(
+      children: [
+        Text('Status: $status'),
+        SizedBox(
+          height: 20,
+        ),
+        Container(
+          width: 200,
+          child: LinearProgressIndicator(
+            value: status / 3,
+            backgroundColor: Colors.grey[200],
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
+          ),
+        ),
+      ],
+    ),
+  );
 }

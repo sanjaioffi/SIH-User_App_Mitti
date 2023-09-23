@@ -63,10 +63,13 @@ class Profile extends StatelessWidget {
                 subtitle: "Manage your account",
               ),
               ProfileTile(
-                  function: () {},
-                  tileIcon: Icons.notifications_outlined,
-                  title: "Notifications",
-                  subtitle: "Manage your notifications"),
+                function: () {
+                  Navigator.pushNamed(context, 'NotificationList');
+                },
+                tileIcon: Icons.notifications_outlined,
+                title: "Notifications",
+                subtitle: "Manage your notifications",
+              ),
               ProfileTile(
                   function: () {},
                   tileIcon: Icons.lock_outline,
@@ -79,7 +82,9 @@ class Profile extends StatelessWidget {
                 subtitle: "manage security settings",
               ),
               ProfileTile(
-                function: () {},
+                function: () {
+                  Navigator.pushNamed(context, 'LanguageWidget');
+                },
                 tileIcon: Icons.language_outlined,
                 title: "Language",
                 subtitle: "manage language settings",

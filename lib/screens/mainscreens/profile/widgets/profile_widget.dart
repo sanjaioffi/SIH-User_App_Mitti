@@ -155,7 +155,7 @@ class ProfileImage extends StatelessWidget {
             // phone number
             Text(
               Get.find<UserController>().userData['phoneNumbers'][0] ??
-                  "phone number",
+              "phone number",
               style: TextStyle(
                 fontSize: 15.sp,
                 color: Colors.grey[500],

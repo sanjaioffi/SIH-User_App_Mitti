@@ -105,7 +105,7 @@ class _UserMapScreenState extends State<UserMapScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: roomsData.isEmpty && markers.isEmpty && circles.isEmpty
-          ? const CircularProgressIndicator()
+          ? const Center(child: CircularProgressIndicator())
           : GoogleMap(
               initialCameraPosition: CameraPosition(
                 target: LatLng(
