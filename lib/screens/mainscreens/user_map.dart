@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:user_mitti/controllers/location_controller.dart';
-import 'package:user_mitti/screens/help_page.dart';
 import 'package:user_mitti/screens/track_help.dart';
 import 'package:user_mitti/widgets/room_function.dart';
 
@@ -38,8 +37,10 @@ class _UserMapScreenState extends State<UserMapScreen> {
     List<Map<String, dynamic>> data = await getRooms();
     setState(() {
       roomsData = data;
-      print(roomsData);
     });
+    if (roomsData.isEmpty) {
+      return;
+    }
     _addCustomMarkers();
     _addCircles();
   }

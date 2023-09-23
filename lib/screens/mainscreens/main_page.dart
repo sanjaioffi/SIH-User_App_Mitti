@@ -17,8 +17,7 @@ class _MainPageState extends State<MainPage> {
   final LocationController locationController = Get.put(LocationController());
   final List pages = [
     HomePage(),
-   UserMapScreen(),
-   
+    UserMapScreen(),
     Profile(),
   ];
 
