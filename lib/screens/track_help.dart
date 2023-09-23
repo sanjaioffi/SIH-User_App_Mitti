@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:user_mitti/screens/help_page.dart';
 
@@ -43,13 +44,20 @@ class _TrackHelpPageState extends State<TrackHelpPage> {
             itemCount: helps.length,
             itemBuilder: (context, index) {
               Map<String, dynamic> help = helps[index];
-              return ExpansionTile(
-                title: Text('Help Type: ${help['helpType']}'),
-                subtitle: stepProgressIndicator(progress: help['status']),
-                children: [
-                  Text('Request By: ${help['name']}'),
-                  Text('Contact: ${help['mobile']}'),
-                ],
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ExpansionTile(
+                  backgroundColor: Colors.grey[200],
+                  title: Text('Help Type: ${help['helpType']}'),
+                  subtitle: stepProgressIndicator(progress: help['status']),
+                  children: [
+                    SizedBox(height: 10.h),
+                    Text('Request By: ${help['name']}'),
+                    SizedBox(height: 5.h),
+                    Text('Contact: ${help['mobile']}'),
+                    SizedBox(height: 10.h),
+                  ],
+                ),
               );
             },
           ),
@@ -83,30 +91,47 @@ class _TrackHelpPageState extends State<TrackHelpPage> {
 }
 
 Widget stepProgressIndicator({required String progress}) {
-  int status = 0;
+  int status = 1;
   if (progress == "Pending") {
     status = 1;
-  } else if (progress == "") {
+  } else if (progress == "InProgress") {
     status = 2;
   } else {
     status = 3;
   }
-  return Container(
-    child: Column(
-      children: [
-        Text('Status: $status'),
-        SizedBox(
-          height: 20,
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      SizedBox(
+        height: 10.h,
+      ),
+      Text(
+        'Status: $progress',
+        style: TextStyle(
+            color: status == 3
+                ? Colors.green
+                : status == 2
+                    ? Colors.red
+                    : Colors.blue),
+      ),
+      SizedBox(
+        height: 10.h,
+      ),
+      SizedBox(
+        width: 450.w,
+        height: 10.h,
+        child: LinearProgressIndicator(
+          borderRadius: BorderRadius.circular(10.dm),
+          value: status / 3,
+          backgroundColor: Colors.grey[200],
+          valueColor: AlwaysStoppedAnimation<Color>(status == 3
+              ? Colors.green
+              : status == 2
+                  ? Colors.red
+                  : Colors.blue),
         ),
-        Container(
-          width: 200,
-          child: LinearProgressIndicator(
-            value: status / 3,
-            backgroundColor: Colors.grey[200],
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
-          ),
-        ),
-      ],
-    ),
+      ),
+    ],
   );
 }
