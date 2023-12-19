@@ -5,7 +5,7 @@ import 'package:user_mitti/widgets/get_logo_text.dart';
 import 'package:user_mitti/widgets/hub_info.dart';
 
 class TemprorayEmergencyRoomWidget extends StatelessWidget {
-  const TemprorayEmergencyRoomWidget({
+  const  TemprorayEmergencyRoomWidget({
     super.key,
     required this.integratedReliefRoomName,
     required this.integratedReliefRoomCause,

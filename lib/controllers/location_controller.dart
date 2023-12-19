@@ -37,8 +37,8 @@ class LocationController extends GetxController {
       //   desiredAccuracy: LocationAccuracy.high,
       // );
       final position = Position(
-        longitude: 77.9569, // Example longitude coordinate in degrees
-        latitude: 10.3553, // Example latitude coordinate in degrees
+        longitude: 77.9694579, // Example longitude coordinate in degrees
+        latitude: 10.3623794, // Example latitude coordinate in degrees
         timestamp:
             DateTime.now(), // Example timestamp representing the current time
         accuracy: 5.0, // Example accuracy in meters

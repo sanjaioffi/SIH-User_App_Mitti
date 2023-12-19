@@ -28,7 +28,7 @@ class _SignInPageState extends State<SignInPage> {
     // TODO: implement initState
     super.initState();
 
-        getPhoneNumbers();
+    getPhoneNumbers();
     status = 'Not Authenticated';
   }
 
@@ -74,7 +74,7 @@ class _SignInPageState extends State<SignInPage> {
             const Align(
                 alignment: Alignment.center,
                 child:
-                    Text('Welcome to Mitti', style: TextStyle(fontSize: 30))),
+                    Text('Welcome to Sonic', style: TextStyle(fontSize: 30))),
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -85,7 +85,7 @@ class _SignInPageState extends State<SignInPage> {
                   labelText: 'Name',
                 ),
                 onSubmitted: (value) {
-                      getPhoneNumbers();
+                  getPhoneNumbers();
                 },
               ),
             ),

@@ -5,9 +5,20 @@ import 'package:get/get.dart';
 import 'package:user_mitti/controllers/location_controller.dart';
 import 'package:user_mitti/screens/mainscreens/profile/widgets/profile_widget.dart';
 
-class Profile extends StatelessWidget {
+class Profile extends StatefulWidget {
   const Profile({super.key});
 
+  @override
+  State<Profile> createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

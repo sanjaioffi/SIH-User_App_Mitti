@@ -150,12 +150,14 @@ class ProfileImage extends StatelessWidget {
             SizedBox(
               height: 10.h,
             ),
-            Text(Get.find<UserController>().userData['name'] ?? "User Name",
+            Text(
+                Get.find<UserController>().userData['name'].toString() ??
+                    "User Name",
                 style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold)),
             // phone number
             Text(
               Get.find<UserController>().userData['phoneNumbers'][0] ??
-              "phone number",
+                  "phone number",
               style: TextStyle(
                 fontSize: 15.sp,
                 color: Colors.grey[500],

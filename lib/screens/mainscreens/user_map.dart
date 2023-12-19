@@ -73,11 +73,95 @@ class _UserMapScreenState extends State<UserMapScreen> {
       ));
     }
     markers.add(Marker(
+      onTap: () {
+        showModalBottomSheet(
+          context: context,
+          builder: (context) {
+            return Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      'User Location',
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Center(child: Text('Contact the nearest Agencies for help')),
+                  const SizedBox(height: 8),
+                  Center(
+                    child: SizedBox(
+                      width: double.maxFinite,
+                      height: 50,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.deepPurpleAccent,
+                          shape: const StadiumBorder(),
+                        ),
+                        onPressed: () {
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => TrackHelpPage(
+                          //               roomId: roomData['roomId'],
+                          //             )));
+                        },
+                        child: const Text(
+                          'Request Help',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
       markerId: const MarkerId('user'),
       position: LatLng(
           Get.find<LocationController>().userLocation.value!.latitude,
           Get.find<LocationController>().userLocation.value!.longitude),
     ));
+    Marker agencyMarker1 = Marker(
+      markerId: MarkerId('1'),
+      position: LatLng(
+        10.368834026556598,
+        77.97227805344454,
+      ), // Marker coordinates
+      infoWindow: InfoWindow(
+        title: 'Agency 1',
+        snippet: 'Railway Protection Force', // Add agency information here
+      ),
+      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
+    );
+
+    Marker agencyMarker2 = Marker(
+      markerId: MarkerId('2'),
+      position: LatLng(
+        10.373399512462896,
+        77.97094154938793,
+      ), // Marker coordinates
+      infoWindow: InfoWindow(
+        title: 'Agency 2',
+        snippet:
+            'Dindigul Disaster Management Authority', // Add agency information here
+      ),
+      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+    );
+
+    // Add markers to the Set
+    markers.add(agencyMarker1);
+    markers.add(agencyMarker2);
 
     if (mounted) {
       setState(() {});
@@ -111,7 +195,7 @@ class _UserMapScreenState extends State<UserMapScreen> {
               initialCameraPosition: CameraPosition(
                 target: LatLng(
                     roomsData[0]['location'][0], roomsData[0]['location'][1]),
-                zoom: 12.0,
+                zoom: 14.5,
               ),
               onMapCreated: (GoogleMapController controller) {
                 setState(() {
@@ -191,4 +275,23 @@ Future<BitmapDescriptor> _createCustomMarker(String imagePath) async {
   final BitmapDescriptor bitmapDescriptor =
       await BitmapDescriptor.fromAssetImage(config, imagePath);
   return bitmapDescriptor;
+}
+
+generateMarker(IconData icon, Color color) {
+  return Column(
+    children: [
+      CircleAvatar(
+          radius: 15,
+          backgroundColor: color,
+          child: Icon(
+            icon,
+            color: Colors.white,
+          )),
+      const SizedBox(height: 1),
+      CircleAvatar(
+        radius: 2,
+        backgroundColor: color,
+      )
+    ],
+  );
 }
