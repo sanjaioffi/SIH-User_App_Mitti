@@ -34,6 +34,7 @@ class _UserMapScreenState extends State<UserMapScreen> {
   }
 
   Future<void> _fetchData() async {
+    print('fetching data');
     List<Map<String, dynamic>> data = await getRooms();
     setState(() {
       roomsData = data;

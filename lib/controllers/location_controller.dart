@@ -33,20 +33,20 @@ class LocationController extends GetxController {
     final permissionStatus = await Permission.location.request();
     print(permissionStatus);
     if (permissionStatus.isGranted) {
-      // final position = await Geolocator.getCurrentPosition(
-      //   desiredAccuracy: LocationAccuracy.high,
-      // );
-      final position = Position(
-        longitude: 77.9694579, // Example longitude coordinate in degrees
-        latitude: 10.3623794, // Example latitude coordinate in degrees
-        timestamp:
-            DateTime.now(), // Example timestamp representing the current time
-        accuracy: 5.0, // Example accuracy in meters
-        altitude: 300.0, // Example altitude in meters above sea level
-        heading: 45.0, // Example heading in degrees
-        speed: 20.0, // Example speed in meters per second
-        speedAccuracy: 2.0, // Example speed accuracy in meters per second
+      final position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
       );
+      // final position = Position(
+      //   longitude: 77.9694579, // Example longitude coordinate in degrees
+      //   latitude: 10.3623794, // Example latitude coordinate in degrees
+      //   timestamp:
+      //       DateTime.now(), // Example timestamp representing the current time
+      //   accuracy: 5.0, // Example accuracy in meters
+      //   altitude: 300.0, // Example altitude in meters above sea level
+      //   heading: 45.0, // Example heading in degrees
+      //   speed: 20.0, // Example speed in meters per second
+      //   speedAccuracy: 2.0, // Example speed accuracy in meters per second
+      // );
       userLocation.value = position;
       update();
       updateDistrict(position);
