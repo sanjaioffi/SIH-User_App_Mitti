@@ -16,21 +16,17 @@ class _AvailableRoomsState extends State<AvailableRooms> {
   List<Map<String, dynamic>> roomsData = [];
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getRooms();
-    print('rooms successfull');
   }
 
   Future<void> getRooms() async {
-    print(Get.find<LocationController>().userLocation.value);
     List<Map<String, dynamic>> data = await findRoomsInRadius([
       Get.find<LocationController>().userLocation.value!.latitude,
       Get.find<LocationController>().userLocation.value!.longitude
     ]);
     setState(() {
       roomsData = data;
-      print(roomsData);
     });
   }
 
@@ -43,19 +39,21 @@ class _AvailableRoomsState extends State<AvailableRooms> {
           itemCount: roomsData.length,
           itemBuilder: (context, index) {
             Map<String, dynamic> room = roomsData[index];
-            print(room);
-            return TemprorayEmergencyRoomWidget(
-                radius: room['radius'],
-                integratedlatLng: room['location'],
-                integratedroomId: room['roomId'],
-                integratedCreatedOn: Timestamp.fromMillisecondsSinceEpoch(
-                        room['createdOn'].millisecondsSinceEpoch)
-                    .toDate()
-                    .toString(),
-                integratedReliefRoomName: room['roomName'],
-                integratedReliefRoomCause: room['disasterType'],
-                integratedReliefRoomAgencies: room['agencies'],
-                integratedReliefLocation: room['district']);
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: TemprorayEmergencyRoomWidget(
+                  radius: room['radius'],
+                  integratedlatLng: room['location'],
+                  integratedroomId: room['roomId'],
+                  integratedCreatedOn: Timestamp.fromMillisecondsSinceEpoch(
+                          room['createdOn'].millisecondsSinceEpoch)
+                      .toDate()
+                      .toString(),
+                  integratedReliefRoomName: room['roomName'],
+                  integratedReliefRoomCause: room['disasterType'],
+                  integratedReliefRoomAgencies: room['agencies'],
+                  integratedReliefLocation: room['district']),
+            );
           },
         ),
       ),

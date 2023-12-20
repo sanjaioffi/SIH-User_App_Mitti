@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:user_mitti/screens/track_help.dart';
 import 'package:user_mitti/widgets/get_logo_text.dart';
-import 'package:user_mitti/widgets/hub_info.dart';
 
 class TemprorayEmergencyRoomWidget extends StatelessWidget {
-  const  TemprorayEmergencyRoomWidget({
+  const TemprorayEmergencyRoomWidget({
     super.key,
     required this.integratedReliefRoomName,
     required this.integratedReliefRoomCause,
@@ -44,35 +42,77 @@ class TemprorayEmergencyRoomWidget extends StatelessWidget {
     };
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: ListTile(
-        contentPadding: const EdgeInsets.all(5),
-        leading: GestureDetector(
-          onTap: () {
-            Get.to(() => HubInfo(roomName: integratedReliefRoomName));
-          },
-          child: CircleAvatar(
-            radius: 30,
-            child: Text(getLogoText(integratedReliefRoomName)),
-          ),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.red.withOpacity(.1),
         ),
-        title: Text(
-          integratedReliefRoomName,
-          style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
+        padding: const EdgeInsets.all(10),
+        child: Row(
+          children: [
+            const CircleAvatar(
+              child: Icon(Icons.flood_outlined),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Text(
+                      integratedReliefRoomName,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                  Text(
+                    "Created on ${integratedCreatedOn.substring(8, 10)}th ${monthMap[integratedCreatedOn.substring(5, 7)]} ${integratedCreatedOn.substring(0, 4)}",
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  TrackHelpPage(roomId: integratedroomId)),
+                        );
+                      },
+                      child: const Text(
+                        "Request Assistance",
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
         ),
-        subtitle: Text(
-          "Created on ${integratedCreatedOn.substring(8, 10)}th ${monthMap[integratedCreatedOn.substring(5, 7)]} ${integratedCreatedOn.substring(0, 4)}",
-        ),
-        trailing: const Icon(Icons.arrow_outward),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => TrackHelpPage(roomId: integratedroomId)),
-          );
-        },
       ),
+      // child: ListTile(
+      //   contentPadding: const EdgeInsets.all(0),
+      //   leading: GestureDetector(
+      //     onTap: () {},
+      //     child: CircleAvatar(
+      //       radius: 30,
+      // child: Text(getLogoText(integratedReliefRoomName)),
+      //     ),
+      //   ),
+      //   title: Text(
+      //     integratedReliefRoomName,
+      //     style: const TextStyle(
+      //       fontSize: 18,
+      //       fontWeight: FontWeight.bold,
+      //     ),
+      //   ),
+      //   subtitle:
+      //   trailing: const Icon(Icons.arrow_outward),
+      //   onTap: () {},
+      // ),
     );
   }
 }
