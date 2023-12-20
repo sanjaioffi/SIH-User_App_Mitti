@@ -20,7 +20,9 @@ class _EmergencyContactPageState extends State<EmergencyContactPage> {
   var title = "";
 
   Future<void> _loadContacts() async {
+    print('loading contacts');
     bool isPermissionGranted = await Permission.contacts.isGranted;
+    print(isPermissionGranted);
     if (!isPermissionGranted) {
       PermissionStatus permissionStatus = await Permission.contacts.request();
       if (permissionStatus != PermissionStatus.granted) {
@@ -28,8 +30,10 @@ class _EmergencyContactPageState extends State<EmergencyContactPage> {
       }
     }
     final Iterable<Contact> contacts = await ContactsService.getContacts();
+    print(contacts.length);
     setState(() {
       _contacts = contacts.toList();
+      print(_contacts.length);
     });
   }
 
@@ -41,6 +45,8 @@ class _EmergencyContactPageState extends State<EmergencyContactPage> {
     print(Get.find<UserController>().uid);
     _selectedContacts =
         Get.find<UserController>().userData['emergencyContacts'] ?? [];
+
+    print(_selectedContacts);
 
     // print(_selectedContacts);
     print(Get.find<UserController>().userData);
@@ -64,27 +70,33 @@ class _EmergencyContactPageState extends State<EmergencyContactPage> {
               itemCount: _contacts.length,
               itemBuilder: (context, index) {
                 final contact = _contacts[index];
-                final bool isSelected =
-                    _selectedContacts.contains(contact.phones!.first.value!);
-                return InkWell(
-                  onTap: () {
-                    setState(() {
-                      isSelected
-                          ? _selectedContacts
-                              .remove(contact.phones!.first.value!)
-                          : _selectedContacts.add(contact.phones!.first.value!);
-                    });
-                  },
-                  child: ListTile(
-                    title: Text(contact.displayName ?? ''),
-                    subtitle: Text(contact.phones!.isNotEmpty
+                final bool isSelected = _selectedContacts.contains(
+                    contact.phones!.length > 0
                         ? contact.phones!.first.value!
-                        : ''),
-                    trailing: isSelected
-                        ? const Icon(Icons.check_circle, color: Colors.green)
-                        : const Icon(Icons.check_circle_outline),
-                  ),
-                );
+                        : '');
+                return contact.phones!.length > 0
+                    ? InkWell(
+                        onTap: () {
+                          setState(() {
+                            isSelected
+                                ? _selectedContacts
+                                    .remove(contact.phones!.first.value!)
+                                : _selectedContacts
+                                    .add(contact.phones!.first.value!);
+                          });
+                        },
+                        child: ListTile(
+                          title: Text(contact.displayName ?? ''),
+                          subtitle: Text(contact.phones!.isNotEmpty
+                              ? contact.phones!.first.value!
+                              : ''),
+                          trailing: isSelected
+                              ? const Icon(Icons.check_circle,
+                                  color: Colors.green)
+                              : const Icon(Icons.check_circle_outline),
+                        ),
+                      )
+                    : SizedBox();
               },
             ),
       floatingActionButton: FloatingActionButton(
