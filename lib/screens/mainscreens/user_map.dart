@@ -133,36 +133,36 @@ class _UserMapScreenState extends State<UserMapScreen> {
           Get.find<LocationController>().userLocation.value!.latitude,
           Get.find<LocationController>().userLocation.value!.longitude),
     ));
-    Marker agencyMarker1 = Marker(
-      markerId: MarkerId('1'),
-      position: LatLng(
-        10.368834026556598,
-        77.97227805344454,
-      ), // Marker coordinates
-      infoWindow: InfoWindow(
-        title: 'Agency 1',
-        snippet: 'Railway Protection Force', // Add agency information here
-      ),
-      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
-    );
+    // Marker agencyMarker1 = Marker(
+    //   markerId: MarkerId('1'),
+    //   position: LatLng(
+    //     10.368834026556598,
+    //     77.97227805344454,
+    //   ), // Marker coordinates
+    //   infoWindow: InfoWindow(
+    //     title: 'Agency 1',
+    //     snippet: 'Railway Protection Force', // Add agency information here
+    //   ),
+    //   icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
+    // );
 
-    Marker agencyMarker2 = Marker(
-      markerId: MarkerId('2'),
-      position: LatLng(
-        10.373399512462896,
-        77.97094154938793,
-      ), // Marker coordinates
-      infoWindow: InfoWindow(
-        title: 'Agency 2',
-        snippet:
-            'Dindigul Disaster Management Authority', // Add agency information here
-      ),
-      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
-    );
+    // Marker agencyMarker2 = Marker(
+    //   markerId: MarkerId('2'),
+    //   position: LatLng(
+    //     10.373399512462896,
+    //     77.97094154938793,
+    //   ), // Marker coordinates
+    //   infoWindow: InfoWindow(
+    //     title: 'Agency 2',
+    //     snippet:
+    //         'Dindigul Disaster Management Authority', // Add agency information here
+    //   ),
+    //   icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+    // );
 
-    // Add markers to the Set
-    markers.add(agencyMarker1);
-    markers.add(agencyMarker2);
+    // // Add markers to the Set
+    // markers.add(agencyMarker1);
+    // markers.add(agencyMarker2);
 
     if (mounted) {
       setState(() {});
