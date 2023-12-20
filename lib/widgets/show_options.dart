@@ -43,7 +43,6 @@ Future<dynamic> showQuickActions(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-      
                   IconButton(
                     onPressed: () {
                       Navigator.push(
@@ -60,7 +59,6 @@ Future<dynamic> showQuickActions(
                     onPressed: () {},
                     icon: const Icon(Icons.person_add_alt),
                   ),
-                  
                 ],
               ),
             )

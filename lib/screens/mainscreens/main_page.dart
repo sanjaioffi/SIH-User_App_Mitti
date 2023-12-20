@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:user_mitti/screens/mainscreens/home_page.dart';
-import 'package:user_mitti/screens/mainscreens/profile/profile.dart';
 import 'package:user_mitti/screens/mainscreens/user_map.dart';
 
 import '../../controllers/location_controller.dart';
@@ -16,9 +15,8 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   final LocationController locationController = Get.put(LocationController());
   final List pages = [
-    HomePage(),
-    UserMapScreen(),
-    Profile(),
+    const HomePage(),
+    const UserMapScreen(),
   ];
 
   late int curPage;
@@ -30,41 +28,36 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return  GetBuilder<LocationController>(builder: (_) {
-        return Scaffold(
-          bottomNavigationBar:  _.userAddress.value == null
-                  ? Center(child: CircularProgressIndicator())
-                  :  BottomNavigationBar(
-            onTap: (index) {
-              setState(() {
-                curPage = index;
-              });
-            },
-            currentIndex: curPage,
-            type: BottomNavigationBarType.fixed,
-            selectedLabelStyle: const TextStyle(fontSize: 0),
-            unselectedFontSize: 0,
-            iconSize: 30,
-            selectedIconTheme: const IconThemeData(color: Colors.blueAccent),
-            unselectedIconTheme: const IconThemeData(color: Colors.grey),
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: "",
+    return GetBuilder<LocationController>(builder: (_) {
+      return Scaffold(
+        bottomNavigationBar: _.userAddress.value == null
+            ? const Center(child: CircularProgressIndicator())
+            : BottomNavigationBar(
+                onTap: (index) {
+                  setState(() {
+                    curPage = index;
+                  });
+                },
+                currentIndex: curPage,
+                type: BottomNavigationBarType.fixed,
+                selectedLabelStyle: const TextStyle(fontSize: 0),
+                unselectedFontSize: 0,
+                iconSize: 30,
+                selectedIconTheme: const IconThemeData(color: Colors.redAccent),
+                unselectedIconTheme: const IconThemeData(color: Colors.grey),
+                items: const [
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.home),
+                    label: "",
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.location_on),
+                    label: "",
+                  ),
+                ],
               ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.location_on),
-                label: "",
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: "",
-              ),
-            ],
-          ),
-          body: pages[curPage],
-        );
-      }
-    );
+        body: pages[curPage],
+      );
+    });
   }
 }

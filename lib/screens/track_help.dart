@@ -9,31 +9,31 @@ class TrackHelpPage extends StatefulWidget {
   String roomId;
 
   @override
-  _TrackHelpPageState createState() => _TrackHelpPageState();
+  State createState() => _TrackHelpPageState();
 }
 
 class _TrackHelpPageState extends State<TrackHelpPage> {
   List<Map<String, dynamic>> helps = [];
   @override
   void initState() {
+    super.initState();
     fetchHelpRequestsInRoom(widget.roomId).then((value) {
       helps = value;
       setState(() {});
     });
-    // TODO: implement initState
-    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         floatingActionButton: FloatingActionButton(
-            child: Icon(Icons.add),
+            child: const Icon(Icons.add),
             onPressed: () => Get.to(() => PostHelpPage(
                   roomId: widget.roomId,
                 ))),
         appBar: AppBar(
-          title: Text('Track Help Requests'),
+          title: const Text('Request Assistance'),
+          centerTitle: true,
         ),
         body: RefreshIndicator(
           onRefresh: () async {

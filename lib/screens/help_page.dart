@@ -7,14 +7,16 @@ class PostHelpPage extends StatefulWidget {
   PostHelpPage({super.key, required this.roomId});
   String roomId;
   @override
-  _PostHelpPageState createState() => _PostHelpPageState();
+  State createState() => _PostHelpPageState();
 }
 
 class _PostHelpPageState extends State<PostHelpPage> {
   final TextEditingController _nameController = TextEditingController(
-      text: Get.find<UserController>().userData['name'] ?? '');
+      text: Get.find<UserController>().userData['name']![0] ?? 'mitun');
+
   final TextEditingController _mobileController = TextEditingController(
-      text: Get.find<UserController>().userData['phoneNumbers'][0] ?? '');
+      text: Get.find<UserController>().userData['phoneNumbers']![0] ?? '');
+
   String _selectedHelpType = 'Food';
   int _numberOfPeople = 1;
 
@@ -22,7 +24,7 @@ class _PostHelpPageState extends State<PostHelpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        scrolledUnderElevation: 0,
+        scrolledUnderElevation: 1,
         title: const Text('Post Help Request'),
       ),
       body: Padding(
@@ -111,7 +113,7 @@ class _PostHelpPageState extends State<PostHelpPage> {
         'timestamp': FieldValue.serverTimestamp(),
       });
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content:
               Text('Help request submittet. refresh to see the updated list.'),
         ),
